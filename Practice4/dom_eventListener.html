@@ -41,5 +41,48 @@ function myThirdFunction() {
 }
 </script>
 
+
+<br><br>
+<h2>JavaScript addEventListener()</h2>
+
+<p>This example demonstrates how to pass parameter values when using the addEventListener() method.</p>
+
+<p>Click the button to perform a calculation.</p>
+
+<button id="myBtn3">Try it</button>
+
+<p id="demo2"></p>
+
+<script>
+var p1 = 5;
+var p2 = 7;
+
+document.getElementById("myBtn3").addEventListener("click", function() {
+  myFunction(p1, p2);
+});
+
+function myFunction(a, b) {
+  var result = a * b;
+  document.getElementById("demo2").innerHTML = result;
+}
+</script>
+
+
+
+
+<br><br>
+<h2>JavaScript addEventListener()</h2>
+
+<p>This example uses the addEventListener() method on the window object.</p>
+
+<p>Try resizing this browser window to trigger the "resize" event handler.</p>
+
+<p id="demo3"></p>
+
+<script>
+window.addEventListener("resize", function(){
+  document.getElementById("demo3").innerHTML = Math.random();
+});
+</script>
 </body>
 </html>
