@@ -6,13 +6,38 @@
 
 <p>This example uses the addEventListener() method to execute a function when a user clicks on a button.</p>
 
-<button id="myBtn">Try it</button>
+<button id="myBtn1">Try it</button>
 
 <script>
-document.getElementById("myBtn").addEventListener("click", myFunction);
+document.getElementById("myBtn1").addEventListener("click", myFunction);
 
 function myFunction() {
   alert ("Hello World!");
+}
+</script>
+
+
+<br><br>
+<button id="myBtn2">Try it</button>
+
+<p id="demo"></p>
+
+<script>
+var x = document.getElementById("myBtn2");
+x.addEventListener("mouseover", myFunction);
+x.addEventListener("click", mySecondFunction);
+x.addEventListener("mouseout", myThirdFunction);
+
+function myFunction() {
+  document.getElementById("demo").innerHTML += "Moused over!<br>";
+}
+
+function mySecondFunction() {
+  document.getElementById("demo").innerHTML += "Clicked!<br>";
+}
+
+function myThirdFunction() {
+  document.getElementById("demo").innerHTML += "Moused out!<br>";
 }
 </script>
 
