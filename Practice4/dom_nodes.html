@@ -15,5 +15,23 @@ var element = document.getElementById("div1");
 element.appendChild(para);
 </script>
 
+
+<br><br>
+<div>
+    <p id="p3">This is a paragraph.</p>
+    <p id="p4">This is another paragraph.</p>
+    </div>
+    
+    
+    <button onclick="myFunction()">Remove Element</button>
+    
+    <script>
+    function myFunction() {
+      var elmnt = document.getElementById("p3");
+      elmnt.remove();
+    }
+    </script>
+
+
 </body>
 </html>
