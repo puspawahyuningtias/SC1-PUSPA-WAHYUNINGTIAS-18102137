@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1 id="id01">My First Page</h1>
+<p id="id02"></p>
+
+<script>
+document.getElementById("id02").innerHTML = document.getElementById("id01").firstChild.nodeValue;
+</script>
+
+<p>Hello World!</p>
+
+<div>
+<p>The DOM is very useful!</p>
+<p>This example demonstrates the <b>document.documentElement</b> property.</p>
+</div>
+
+<script>
+alert(document.documentElement.innerHTML);
+</script>
+
+</body>
+</html>
