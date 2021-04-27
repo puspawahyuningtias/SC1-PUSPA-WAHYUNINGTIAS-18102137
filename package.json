@@ -1,0 +1,23 @@
+{
+  "name": "sc1-puspawahyuningtias-18102137",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/18102137/sc1-puspawahyuningtias-18102137.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/18102137/sc1-puspawahyuningtias-18102137/issues"
+  },
+  "homepage": "https://gitlab.com/18102137/sc1-puspawahyuningtias-18102137#readme",
+  "dependencies": {
+    "bootstrap": "^4.6.0",
+    "jquery": "^3.6.0"
+  }
+}
