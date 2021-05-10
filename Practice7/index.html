@@ -104,7 +104,10 @@
             }
         })
         .done(function(data) {
-            console.log(data);
+            myData = JSON.parse(data);
+            for (i = 0; i < myData['quotes'].length; i++) {
+                console.log(myData['quotes'][i]);
+            }
         }); 
     }
     $(document).ready(function(){
