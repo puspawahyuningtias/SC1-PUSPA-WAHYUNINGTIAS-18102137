@@ -92,6 +92,8 @@
                                     <div class="btn-group">
                                         <button type="button" id="view-detail"
                                             class="btn btn-sm btn-outline-secondary">View</button>
+                                        <button type="button" id="edit-detail"
+                                            class="btn btn-sm btn-outline-primary">Edit</button>
                                     </div>
                                     <small class="text-muted" id="card-date">9 mins</small>
                                 </div>
@@ -221,7 +223,11 @@
                         item.find('#card-name').html(myData['quotes'][i].name + " (" + myData['quotes'][i].class + ")");
                         item.find('#card-date').html(myData['quotes'][i].updated);
                         item.find('#view-detail').attr("onClick", "callModal('" + myData['quotes'][i].title + "','" + myData['quotes'][i].name + " (" + myData['quotes'][i].class + ")','" + myData['quotes'][i].images + "','" + myData['quotes'][i].description + "')");
+                        item.find('#edit-detail').attr("onClick", "callInputModal(\"Edit Quote\",\"" + myData['quotes'][i].title + "\",\"" + myData['quotes'][i].description.replace('"', '\\"').replace(/(\r\n|\n|\r)/gm,'<br>') +"\",\"" + myData['quotes'][i].images + "\",\"" + myData['quotes'][i].quote_id+"\")");
                         item.appendTo("#quote-items");
+                        if (sessionStorage.getItem("student_id") != myData['quotes'][i].student_id) {
+                            item.find('#edit-detail').attr("style", "display: none;");
+                        }
                     }
                 });
         }
@@ -239,9 +245,9 @@
             });
             sessionStorage.setItem("student_id", "427");
             sessionStorage.setItem("nim", "18102137");
-            getQuotes(' https://quotesbeta.informatika.app/index.php/quotes/q/my_quote/'+sessionStorage.getItem("nim"), 'My Quotes')
+            getQuotes(' https://quotesbeta.informatika.app/index.php/quotes/q/my_quote/' + sessionStorage.getItem("nim"), 'My Quotes')
         })
-        
+
         function insertQuote(data) {
             $.ajax({
                 type: 'POST',
@@ -251,16 +257,38 @@
                 processData: false,
                 contentType: false,
                 beforeSend: function (xhr) {
-                xhr.overrideMimeType("text/plain; charset=x-user-defined");
+                    xhr.overrideMimeType("text/plain; charset=x-user-defined");
                 },
                 error: function (xhr, status, error) {
-                console.log(xhr);
+                    console.log(xhr);
                 }
             })
                 .done(function (data) {
-                console.log(data);
-                getQuotes('https://quotesbeta.informatika.app/index.php/quotes/q/my_quote/' + sessionStorage.getItem("nim"), 'My Quotes');
-                $('#quoteInputModal').modal('toggle');
+                    console.log(data);
+                    getQuotes('https://quotesbeta.informatika.app/index.php/quotes/q/my_quote/' + sessionStorage.getItem("nim"), 'My Quotes');
+                    $('#quoteInputModal').modal('toggle');
+                });
+        };
+        function updateQuote(data) {
+            console.log(data);
+            $.ajax({
+                type: 'POST',
+                url: "https://quotesbeta.informatika.app/index.php/quotes/q/edit/1",
+                dataType: "JSON",
+                data: new FormData(data),
+                processData: false,
+                contentType: false,
+                beforeSend: function (xhr) {
+                    xhr.overrideMimeType("text/plain; charset=x-user-defined");
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr);
+                }
+            })
+                .done(function (data) {
+                    console.log(data);
+                    getQuotes('https://quotesbeta.informatika.app/index.php/quotes/q/my_quote/' + sessionStorage.getItem("nim"), 'My Quotes');
+                    $('#quoteInputModal').modal('toggle');
                 });
         };
         $("#modal-input-form-image").change(function () {
@@ -292,7 +320,7 @@
                 reader.readAsDataURL(input.files[0]);
             }
         }
-        
+
 
     </script>
 
