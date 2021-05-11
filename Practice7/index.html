@@ -60,7 +60,7 @@
         <div class="container">
             <h1 class="jumbotron-heading" id="title-page"></h1>
             <div class="row" id="quote-items">
-            <div class="col-md-4" id="quote-item">
+            <div class="col-md-4" style="display: none" id="quote-item">
             <div class="card mb-4 box-shadow">
             <img class="card-img-top" id="card-img" src="assets/img/no-image.png" alt="Card image cap">
             <div class="card-body">
@@ -113,6 +113,7 @@
             for (i = 0; i < myData['quotes'].length; i++) {
                 var item = $( "#quote-item" ).clone();
                 item.find('#card-description').html(myData['quotes'][i].description);
+                item.removeAttr( "style" );
                 item.find('#card-img').attr('src', myData['quotes'][i].images);
                 item.find('#card-title').html(myData['quotes'][i].title);
                 item.find('#card-name').html(myData['quotes'][i].name + " (" + myData['quotes'][i].class + ")");
