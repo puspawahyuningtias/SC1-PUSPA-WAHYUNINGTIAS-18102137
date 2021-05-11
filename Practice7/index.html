@@ -40,7 +40,7 @@
                 <a href="#" class="navbar-brand d-flex align-items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="mr2">
+                        class="mr-2">
                         <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z">
                         </path>
                         <circle cx="12" cy="13" r="4"></circle>
@@ -94,6 +94,8 @@
                                             class="btn btn-sm btn-outline-secondary">View</button>
                                         <button type="button" id="edit-detail"
                                             class="btn btn-sm btn-outline-primary">Edit</button>
+                                        <button type="button" id="delete-quote"
+                                            class="btn btn-sm btn-outline-danger">Delete</button>
                                     </div>
                                     <small class="text-muted" id="card-date">9 mins</small>
                                 </div>
@@ -111,7 +113,7 @@
             </p>
             <p>Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
             <p>New to Bootstrap? <a href="../../">Visit the homepage</a> or read our <a
-                    href="../../gettingstarted/">getting started guide</a>.</p>
+                    href="../../getting-started/">getting started guide</a>.</p>
         </div>
     </footer>
 
@@ -139,7 +141,7 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="quoteInputModal" tabindex="-1" role="dialog" arialabelledby="quoteInputModal"
+    <div class="modal fade" id="quoteInputModal" tabindex="-1" role="dialog" aria-labelledby="quoteInputModal"
         aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -156,14 +158,14 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Title</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="modal-input-formtitle"
+                                <input type="text" class="form-control" id="modal-input-form-title"
                                     placeholder="Title.." name="title" required>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Description</label>
                             <div class="col-sm-10">
-                                <textarea class="form-control" id="modal-input-formdescription" rows="5"
+                                <textarea class="form-control" id="modal-input-form-description" rows="5"
                                     placeholder="Description..." name="description" required></textarea>
                             </div>
                         </div>
@@ -214,25 +216,26 @@
                     // console.log(data);
                     myData = JSON.parse(data);
                     for (i = 0; i < myData['quotes'].length; i++) {
-                        console.log(myData['quotes'][i]);
+                        // console.log(myData['quotes'][i]);
                         var item = $("#quote-item").clone();
-                        item.find('#card-description').html(myData['quotes'][i].description);
+                        item.find('#card-description').html(myData['quotes'][i].description.replace('"', '\"').replace(/\n/g, '<br />'));
                         item.removeAttr("style");
                         item.find('#card-img').attr('src', myData['quotes'][i].images);
                         item.find('#card-title').html(myData['quotes'][i].title);
                         item.find('#card-name').html(myData['quotes'][i].name + " (" + myData['quotes'][i].class + ")");
                         item.find('#card-date').html(myData['quotes'][i].updated);
-                        item.find('#view-detail').attr("onClick", "callModal('" + myData['quotes'][i].title + "','" + myData['quotes'][i].name + " (" + myData['quotes'][i].class + ")','" + myData['quotes'][i].images + "','" + myData['quotes'][i].description + "')");
-                        item.find('#edit-detail').attr("onClick", "callInputModal(\"Edit Quote\",\"" + myData['quotes'][i].title + "\",\"" + myData['quotes'][i].description.replace('"', '\\"').replace(/(\r\n|\n|\r)/gm,'<br>') +"\",\"" + myData['quotes'][i].images + "\",\"" + myData['quotes'][i].quote_id+"\")");
-                        item.appendTo("#quote-items");
+                        item.find('#view-detail').attr("onClick", "callModal(\"" + myData['quotes'][i].title + "\",\"" + myData['quotes'][i].name + " (" + myData['quotes'][i].class + ")\",\"" + myData['quotes'][i].images + "\",\"" + myData['quotes'][i].description.replace('"', '\\"').replace(/(\r\n|\n|\r)/gm, '<br>') + "\")");
+                        item.find('#delete-quote').attr("onClick", "deleteQuote(" + myData['quotes'][i].quote_id + ",'" + myData['quotes'][i].title + "')");
+                        item.find('#edit-detail').attr("onClick", "callInputModal(\"Edit Quote\",\"" + myData['quotes'][i].title + "\",\"" + myData['quotes'][i].description.replace('"', '\\"').replace(/(\r\n|\n|\r)/gm, '<br>') + "\",\"" + myData['quotes'][i].images + "\",\"" + myData['quotes'][i].quote_id+ "\")");
                         if (sessionStorage.getItem("student_id") != myData['quotes'][i].student_id) {
                             item.find('#edit-detail').attr("style", "display: none;");
+                            item.find('#delete-quote').attr("style", "display: none;");
                         }
+                        item.appendTo("#quote-items");
                     }
                 });
         }
         $(document).ready(function () {
-            getQuotes('https://quotesbeta.informatika.app/index.php/quotes/q/my_quote/18102137', 'My Quotes');
             $('#modal-input-form').submit(function (e) {
                 e.preventDefault();
                 var formData = $(this).serializeArray();
@@ -291,6 +294,25 @@
                     $('#quoteInputModal').modal('toggle');
                 });
         };
+        function deleteQuote(quote_id, title) {
+            var r = confirm("Delete " + title + "?");
+            if (r == true) {
+                $.ajax({
+                    type: 'DELETE',
+                    url: "https://quotesbeta.informatika.app/index.php/quotes/q/quote_id/" + quote_id,
+                    beforeSend: function (xhr) {
+                        xhr.overrideMimeType("text/plain; charset=x-user-defined");
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(xhr);
+                    }
+                })
+                    .done(function (data) {
+                        console.log(data);
+                        getQuotes('https://quotesbeta.informatika.app/index.php/quotes/q/my_quote/' + sessionStorage.getItem("nim"), 'My Quotes');
+                    })
+            }
+        }
         $("#modal-input-form-image").change(function () {
             readURL(this);
         });
