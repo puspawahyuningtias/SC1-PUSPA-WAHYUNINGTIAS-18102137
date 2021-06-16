@@ -3,8 +3,11 @@ include "koneksi.php";
 $qkelas = "select * from kelas";
 $data_kelas = $conn->query($qkelas);
 
-$qmahasiswa = "select * from mahasiswa";
+$qmahasiswa = "select kelas.nama, mahasiswa.nama_lengkap, mahasiswa.alamat from kelas inner join mahasiswa on mahasiswa.kelas_id = kelas.kelas_id";
 $data_mahasiswa = $conn->query($qmahasiswa);
+
+$qhitung = "SELECT COUNT(*) as jumlah from mahasiswa;";
+$data_hitung = $conn->query($qhitung);
 ?>
 
 <!doctype html>
@@ -62,18 +65,27 @@ $data_mahasiswa = $conn->query($qmahasiswa);
       <div class="col-md-4 order-md-2 mb-4">
         <h4 class="d-flex justify-content-between align-items-center mb-3">
           <span class="text-muted">Data Mahasiswa</span>
-          <span class="badge badge-secondary badge-pill">0</span>
+          <?php
+          foreach ($data_hitung as $index => $value) {
+          ?>
+            <span class="badge badge-secondary badge-pill"><?php echo $value['jumlah'] ?></span>
+          <?php
+          }
+          ?>
+        </h4>
         </h4>
         <?php
         foreach ($data_mahasiswa as $index => $value) {
+
         ?>
           <ul class="list-group mb-3">
             <li class="list-group-item d-flex justify-content-between lh-condensed">
+
               <div>
                 <h6 class="my-0"><?php echo $value['nama_lengkap'] ?></h6>
                 <small class="text-muted"><?php echo $value['alamat'] ?></small>
               </div>
-              <span class="text-muted"><?php echo $value['kelas_id'] ?></span>
+              <span class="text-muted"><?php echo $value['nama'] ?> </span>
             </li>
           </ul>
         <?php
