@@ -1,3 +1,9 @@
+<?php
+include "koneksi.php";
+$qkelas = "select * from kelas";
+$data_kelas = $conn->query($qkelas);
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -69,6 +75,13 @@
             <label for="kelas">Kelas</label>
             <select class="custom-select d-block w-100" id="Kelas" name="kelas_id" required>
               <option value="">Pilih...</option>
+              <?php
+              foreach ($data_kelas as $index => $value) {
+              ?>
+                <option value="<?php echo $value['kelas_id'] ?>"><?php echo $value['nama'] ?></opti on>
+                <?php
+              }
+                ?>
             </select>
           </div>
           <div class="row">
