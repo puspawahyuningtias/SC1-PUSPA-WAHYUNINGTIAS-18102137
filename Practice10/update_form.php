@@ -15,7 +15,7 @@ while (($row = mysqli_fetch_array($query)) != null) {
 $count = count($data);
 
 //untuk menampilkan kelas berdasarkan id kelas
-$ex = "select mahasiswa.mahasiswa_id, mahasiswa.nama_lengkap, mahasiswa.alamat, mahasiswa.kelas_id, kelas.nama from mahasiswa join kelas on kelas.kelas_id = mahasiswa.kelas_id";
+$ex = "select mahasiswa.mahasiswa_id, mahasiswa.foto, mahasiswa.nama_lengkap, mahasiswa.alamat, mahasiswa.kelas_id, kelas.nama from mahasiswa join kelas on kelas.kelas_id = mahasiswa.kelas_id";
 $data_mahasiswa = $conn->query($ex);
 
 //edit form
@@ -103,7 +103,9 @@ foreach ($conn->query($qselect_mahasiswa) as $value) {
                 ?>
                     <ul class="list-group mb-3">
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
-
+                            <div>
+                                <img src="uploads/<?php echo $value['foto'];?>" width="80px" height="80px">
+                            </div>
                             <div>
                                 <h6 class="my-0"><?php echo $value['nama_lengkap'] ?></h6>
                                 <small class="text-muted"><?php echo $value['alamat'] ?></small>
@@ -126,7 +128,7 @@ foreach ($conn->query($qselect_mahasiswa) as $value) {
                 <h4 class="mb-3">Input Data</h4>
                 <?php include "read_message.php" ?>
             </div>
-            <form action="simpan_mahasiswa.php" method="POST">
+            <form action="simpan_mahasiswa.php" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="mahasiswa_id" value="<?php echo $data_select_mahasiswa['mahasiswa_id'] ?>">
 
                 <div class="mb-3">
@@ -156,11 +158,13 @@ foreach ($conn->query($qselect_mahasiswa) as $value) {
                             ?>
                     </select>
                 </div>
+                <label for="gambar">Pilih Gambar</label>
+                <input type="file" name="gambar" id="gambar">
                 <div class="row">
                 </div>
                 <hr class="mb-4">
                 <button class="btn btn-primary btn-lg btn-block" type="submit">Update Data</button>
-                <a href="index.php" class="btn btn-warning btn-lg btnblock" type="submit">Batal</a>
+                <a href="index.php" class="btn btn-warning btn-lg btn-block" type="submit">Batal</a>
             </form>
         </div>
     </div>

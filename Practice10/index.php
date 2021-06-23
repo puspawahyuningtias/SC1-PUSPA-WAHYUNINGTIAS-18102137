@@ -83,7 +83,9 @@ $data_hitung = $conn->query($qhitung);
         ?>
           <ul class="list-group mb-3">
             <li class="list-group-item d-flex justify-content-between lh-condensed">
-
+              <div>
+                <img src="uploads/<?php echo $value['foto']; ?>" width="80px" height="80px">
+              </div>
               <div>
                 <h6 class="my-0"><?php echo $value['nama_lengkap'] ?></h6>
                 <small class="text-muted"><?php echo $value['alamat'] ?></small>
@@ -105,7 +107,7 @@ $data_hitung = $conn->query($qhitung);
         <h4 class="mb-3">Input Data</h4>
         <?php include "read_message.php" ?>
       </div>
-      <form action="simpan_mahasiswa.php" method="POST">
+      <form action="simpan_mahasiswa.php" method="POST" enctype="multipart/form-data">
         <div class="mb-3">
           <label for="nama_lengkap">Nama Lengkap</label>
           <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap" required>
@@ -127,6 +129,8 @@ $data_hitung = $conn->query($qhitung);
               ?>
           </select>
         </div>
+        <label for="gambar">Pilih Gambar</label>
+        <input type="file" name="gambar" id="gambar">
         <div class="row">
         </div>
         <hr class="mb-4">
