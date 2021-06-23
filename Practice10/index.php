@@ -87,6 +87,9 @@ $data_hitung = $conn->query($qhitung);
                 <small class="text-muted"><?php echo $value['alamat'] ?></small>
               </div>
               <span class="text-muted"><?php echo $value['nama'] ?> </span>
+              <a href="update_form.php?mahasiswa_id=<?php echo $value['mahasiswa_id'] ?>" type="button" class="close">
+                <span class="fa fa-pencil"></span>
+              </a>
               <a href="hapus_data.php?mahasiswa_id=<?php echo $value['mahasiswa_id'] ?>" type="button" class="close">
                 <span class="fa fa-trash"></span>
               </a>
