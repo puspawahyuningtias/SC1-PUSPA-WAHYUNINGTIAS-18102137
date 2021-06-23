@@ -1,5 +1,7 @@
 <?php
 include "koneksi.php";
+session_start();
+
 $qkelas = "select * from kelas";
 $data_kelas = $conn->query($qkelas);
 
@@ -100,37 +102,38 @@ $data_hitung = $conn->query($qhitung);
         ?>
       </div>
       <div class="col-md-8 order-md-1">
-        Konten Input
         <h4 class="mb-3">Input Data</h4>
-        <form action="simpan_mahasiswa.php" method="POST">
-          <div class="mb-3">
-            <label for="nama_lengkap">Nama Lengkap</label>
-            <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap" required>
-          </div>
-          <div class="mb-3">
-            <label for="alamat">Alamat</label>
-            <input type="text" class="form-control" id="alamat" name="alamat" required>
-          </div>
-          <div class="mb-3">
-            <label for="kelas">Kelas</label>
-            <select class="custom-select d-block w-100" id="Kelas" name="kelas_id" required>
-              <option value="">Pilih...</option>
-              <?php
-              foreach ($data_kelas as $index => $value) {
-              ?>
-                <option value="<?php echo $value['kelas_id'] ?>"><?php echo $value['nama'] ?></opti on>
-                <?php
-              }
-                ?>
-            </select>
-          </div>
-          <div class="row">
-          </div>
-          <hr class="mb-4">
-          <button class="btn btn-primary btn-lg btn-block" type="submit">Simpan Data</button>
-        </form>
+        <?php include "read_message.php" ?>
       </div>
+      <form action="simpan_mahasiswa.php" method="POST">
+        <div class="mb-3">
+          <label for="nama_lengkap">Nama Lengkap</label>
+          <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap" required>
+        </div>
+        <div class="mb-3">
+          <label for="alamat">Alamat</label>
+          <input type="text" class="form-control" id="alamat" name="alamat" required>
+        </div>
+        <div class="mb-3">
+          <label for="kelas">Kelas</label>
+          <select class="custom-select d-block w-100" id="Kelas" name="kelas_id" required>
+            <option value="">Pilih...</option>
+            <?php
+            foreach ($data_kelas as $index => $value) {
+            ?>
+              <option value="<?php echo $value['kelas_id'] ?>"><?php echo $value['nama'] ?></opti on>
+              <?php
+            }
+              ?>
+          </select>
+        </div>
+        <div class="row">
+        </div>
+        <hr class="mb-4">
+        <button class="btn btn-primary btn-lg btn-block" type="submit">Simpan Data</button>
+      </form>
     </div>
+  </div>
 
   </div>
   <footer class="my-5 pt-5 text-muted text-center text-small">

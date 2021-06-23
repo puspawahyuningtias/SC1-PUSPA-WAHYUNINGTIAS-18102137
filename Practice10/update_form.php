@@ -124,45 +124,46 @@ foreach ($conn->query($qselect_mahasiswa) as $value) {
             <div class="col-md-8 order-md-1">
                 Konten Input
                 <h4 class="mb-3">Input Data</h4>
-                <form action="simpan_mahasiswa.php" method="POST">
-                    <input type="hidden" name="mahasiswa_id" value="<?php echo $data_select_mahasiswa['mahasiswa_id'] ?>">
-
-                    <div class="mb-3">
-                        <label for="nama_lengkap">Nama Lengkap</label>
-                        <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap" value="<?php echo $data_select_mahasiswa['nama_lengkap'] ?>" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="alamat">Alamat</label>
-                        <input type="text" class="form-control" id="alamat" name="alamat"value="<?php echo $data_select_mahasiswa['alamat'] ?>" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="kelas">Kelas</label>
-                        <select class="custom-select d-block w-100" id="Kelas" name="kelas_id" required>
-                            <option value="">Pilih...</option>
-                            <?php
-                            foreach ($data_kelas as $index => $value) {
-                                if($data_select_mahasiswa['kelas_id']==$value['kelas_id']){
-                                    $is_selected = 'selected';
-                                    }
-                                    else{
-                                    $is_selected = '';
-                                    }
-                                   
-                            ?>
-                                <option <?php echo $is_selected ?> value="<?php echo $value['kelas_id'] ?>"><?php echo $value['nama'] ?></opti on>
-                                <?php
-                            }
-                                ?>
-                        </select>
-                    </div>
-                    <div class="row">
-                    </div>
-                    <hr class="mb-4">
-                    <button class="btn btn-primary btn-lg btn-block" type="submit">Update Data</button>
-                    <a href="index.php" class="btn btn-warning btn-lg btnblock" type="submit">Batal</a>
-                </form>
+                <?php include "read_message.php" ?>
             </div>
+            <form action="simpan_mahasiswa.php" method="POST">
+                <input type="hidden" name="mahasiswa_id" value="<?php echo $data_select_mahasiswa['mahasiswa_id'] ?>">
+
+                <div class="mb-3">
+                    <label for="nama_lengkap">Nama Lengkap</label>
+                    <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap" value="<?php echo $data_select_mahasiswa['nama_lengkap'] ?>" required>
+                </div>
+                <div class="mb-3">
+                    <label for="alamat">Alamat</label>
+                    <input type="text" class="form-control" id="alamat" name="alamat" value="<?php echo $data_select_mahasiswa['alamat'] ?>" required>
+                </div>
+                <div class="mb-3">
+                    <label for="kelas">Kelas</label>
+                    <select class="custom-select d-block w-100" id="Kelas" name="kelas_id" required>
+                        <option value="">Pilih...</option>
+                        <?php
+                        foreach ($data_kelas as $index => $value) {
+                            if ($data_select_mahasiswa['kelas_id'] == $value['kelas_id']) {
+                                $is_selected = 'selected';
+                            } else {
+                                $is_selected = '';
+                            }
+
+                        ?>
+                            <option <?php echo $is_selected ?> value="<?php echo $value['kelas_id'] ?>"><?php echo $value['nama'] ?></opti on>
+                            <?php
+                        }
+                            ?>
+                    </select>
+                </div>
+                <div class="row">
+                </div>
+                <hr class="mb-4">
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Update Data</button>
+                <a href="index.php" class="btn btn-warning btn-lg btnblock" type="submit">Batal</a>
+            </form>
         </div>
+    </div>
 
     </div>
     <footer class="my-5 pt-5 text-muted text-center text-small">
