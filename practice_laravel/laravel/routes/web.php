@@ -22,3 +22,4 @@ Route::get('/student', 'StudentController@index')->name('student.index');
 Route::get('/student/{student}', 'StudentController@show')->name('student.show');
 Route::get('/student/{student}/edit', 'StudentController@edit')->name('student.edit');
 Route::patch('/student/{student}', 'StudentController@update')->name('student.update');
+Route::delete('/student/{student}', 'StudentController@destroy')->name('student.destroy');
