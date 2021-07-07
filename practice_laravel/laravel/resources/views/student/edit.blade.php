@@ -15,7 +15,7 @@
             <div class="col-md-8 col-xl-6">
                 <h1>Edit Mahasiswa</h1>
                 <hr>
-                <form action="" method="POST">
+                <form action="{{ route('student.update',['student' => $student->id]) }}" method="POST">
                     @method('PATCH')
                     @csrf
                     <div class="form-group">
