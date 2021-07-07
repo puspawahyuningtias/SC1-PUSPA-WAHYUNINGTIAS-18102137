@@ -40,4 +40,9 @@ class StudentController extends Controller
         $result = Student::findOrFail($student_id);
         return view('student.show', ['student' => $result]);
     }
+    public function edit($student_id)
+    {
+        $result = Student::findOrFail($student_id);
+        return view('student.edit', ['student' => $result]);
+    }
 }
