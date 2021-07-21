@@ -89,6 +89,7 @@
 
                 <div class="links">
                     <a href="../practice_laravel/student">Student</a>
+                    <a href="../practice_laravel/adminlte/student/create">Admin LTE</a>
                     <a href="https://gitlab.com/18102137/sc1-puspawahyuningtias-18102137.git">Gitlab</a>
                 </div>
             </div>
