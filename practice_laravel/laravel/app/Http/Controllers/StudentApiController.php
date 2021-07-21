@@ -149,5 +149,17 @@ class StudentApiController extends Controller
     public function destroy($id)
     {
         //
+        if (Student::where('id', $id)->exists()) {
+            $mahasiswa = Student::find($id);
+            File::delete($mahasiswa->image);
+            $mahasiswa->delete();
+            return response()->json([
+            "message" => "student record deleted"
+            ], 201);
+            } else {
+            return response()->json([
+            "message" => "Student not found"
+            ], 404);
+            }
     }
 }
